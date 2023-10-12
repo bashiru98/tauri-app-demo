@@ -57,6 +57,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
+        "label": "the-label",
         "title": "new-tauri-app",
         "width": 800
       }

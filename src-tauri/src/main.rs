@@ -3,13 +3,13 @@
 
 fn main() {
   tauri::Builder::default()
-  .invoke_handler(tauri::generate_handler![my_custom_command])
+  .invoke_handler(tauri::generate_handler![log_todo])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
 
 
 #[tauri::command]
-fn my_custom_command(name: String) {
-  println!("My name is {}", name);
+ fn log_todo(added_todo: String) {
+  println!("New todo added: {}", added_todo);
 }

@@ -1,5 +1,5 @@
 "use client"
-
+import { invoke } from "@tauri-apps/api/tauri";
 import Left from "@/components/Left";
 import Right from "@/components/Right";
 import axios from "axios";
@@ -42,8 +42,13 @@ const Weather = () => {
 
     e.preventDefault()
     try{
-      const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=5da52fcbdce9c42ee1f76eda6db408d7&units=metric`)
-      const data = await res.data
+      // invoke fetch_weather_data function from the server
+      const weatherResponseFromBackend = (await invoke("fetch_weather_data", { location: location })) as string;
+      // first parse the string to json
+      const weatherData = JSON.parse(weatherResponseFromBackend);
+
+      // const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=5da52fcbdce9c42ee1f76eda6db408d7&units=metric`)
+      const data = weatherData
       
       getTime(data.timezone)
 
